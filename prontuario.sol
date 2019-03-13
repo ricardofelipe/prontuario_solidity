@@ -17,8 +17,11 @@ contract Prontuario {
     struct Paciente {
         address addr;
         string nome;
+        int idade;
+        string genero;
         Exame[] exames;
         address[] acessos;
+        mapping(address => bool) roles;
     }
 
     mapping(address => Paciente) private pacientesLista;
@@ -35,16 +38,18 @@ contract Prontuario {
     }
     
     function addPaciente(address _address, string memory _nome) public {
+        
+       
         if(msg.sender == system){
-            pacientesLista[_address].addr     = _address; 
-            pacientesLista[_address].nome     = _nome;
+            pacientesLista[_address].addr = _address; 
+            pacientesLista[_address].nome = _nome;
         }
     }
 
     function addExames(address _address, string memory _nome, string memory _resultado) public {
         Exame memory _exame;
         
-        _exame.nome      = _nome;
+        _exame.nome = _nome;
         _exame.resultado = _resultado;
          
         if (msg.sender == system) {
@@ -70,16 +75,23 @@ contract Prontuario {
         }
     }
     
-    function getAcesso(address _address) public view returns (address[] memory) {
-        address[] memory _acesso;
-        
-        if(msg.sender == system){
-            _acesso = pacientesLista[_address].acessos;  
-        }else{
-            _acesso = pacientesLista[msg.sender].acessos;   
-        }
-        
-        return _acesso;
+    function assignRole (address paciente, address entity) hasRole(paciente) public{
+        pacientesLista[paciente].roles[entity] = true;
     }
-    
+
+    function unassignRole (address paciente, address entity) hasRole(paciente) public{
+        pacientesLista[paciente].roles[entity] = false;
+    }
+
+    function isAssignedRole (address paciente, address entity) public view returns (bool){
+        return pacientesLista[paciente].roles[entity];
+    }
+  
+    modifier hasRole (address paciente) {
+        if (!pacientesLista[paciente].roles[msg.sender] && msg.sender != system) {
+            revert();
+        }
+        _;
+    }
+
 }
