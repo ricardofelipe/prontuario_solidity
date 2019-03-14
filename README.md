@@ -13,3 +13,6 @@ Regras de negócio:
 - É possivel remover o acesso para usuarios (endereços) visualizar informaçoes do paciente e seus exames.
 - Somente o criador pode liberar/remover os acessos.
 - A qualquer momento o paciente pode consultar suas informaçoes e exames.
+
+# Plataforma pata testar o sistema:
+# https://remix.ethereum.org
