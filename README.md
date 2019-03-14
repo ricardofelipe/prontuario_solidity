@@ -2,7 +2,7 @@ Exemplo de aplicação utilizando blockchain em um sistema de prontuario medico.
 
 Funcionalidades:
 - Cadastro de paciente.
-- Cadastro de exames.
+- Cadastro de exames e resultados.
 - Acesso para visualização de pacientes e exames.
 
 Regras de negócio:
