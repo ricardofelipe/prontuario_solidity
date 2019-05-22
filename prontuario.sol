@@ -59,13 +59,13 @@ contract Prontuario {
     }
     
     //Somente o paciente pode adicionar um novo acesso.
-    function addAcesso (address _paciente, address _medico) ePaciente(_paciente) public{
-        pacientesLista[_paciente].roles[_medico] = true;
+    function addAcesso (address _medico) ePaciente(msg.sender) public{
+        pacientesLista[msg.sender].roles[_medico] = true;
     }
 
     //Somente o paciente pode remover um acesso.
-    function removeAcesso (address _paciente, address _medico) ePaciente(_paciente) public{
-        pacientesLista[_paciente].roles[_medico] = false;
+    function removeAcesso (address _medico) ePaciente(msg.sender) public{
+        pacientesLista[msg.sender].roles[_medico] = false;
     }
     
     //Verifica se é o criador.
